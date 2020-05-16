@@ -1,0 +1,28 @@
+
+server:
+  port: 9001
+
+spring:
+  application:
+    name: microservice-user
+
+  datasource:
+    url: jdbc:mysql://localhost:53306/dockerDatabase?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: lcw
+    password: lcw2688499
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    register-with-eureka: true #User 提供服务 所以 作为服务提供方 必须为 true
+    fetch-registry: true #作为客户端需要从Eureka获取注册信息
+    service-url:  #客户端 注册的地址
+      defaultZone: http://127.0.0.1:8888/eureka, http://127.0.0.1:9999/eureka
+  instance:
+    prefer-ip-address: true #优先使用该服务的IP地址注册到Eureka
+    lease-renewal-interval-in-seconds: 10 #每隔10s 向Eureka发送心跳 证明自己 alive
+    lease-expiration-duration-in-seconds: 60 #60s中 Eureka都没有 收到 心跳 则 此服务过期
